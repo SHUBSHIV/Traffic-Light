@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traffic Lights</title>
+  <style>
+    
+    .traffic-light {
+      width: 120px;
+      padding: 15px;
+      background: #222;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,.6);
+      margin: 40px auto;
+    }
+
+   
+    .light {
+      width: 90px;
+      height: 90px;
+      margin: 12px auto;
+      border-radius: 50%;
+      background: #111;           
+      box-shadow: inset 0 0 10px #000;
+      transition: background .3s;
+    }
+
+  
+    .light.red.on    { background: #ff1e1e; }
+    .light.yellow.on { background: #ffd31e; }
+    .light.green.on  { background: #1eff1e; }
+
+  
+    @keyframes cycle {
+      0%   { background: #ff1e1e; }   
+      33%  { background: #ff1e1e; }     
+      34%  { background: #ffd31e; }    
+      66%  { background: #ffd31e; }
+      67%  { background: #1eff1e; }     
+      100% { background: #1eff1e; }
+    }
+    .traffic-light[data-animate="yes"] .light.red    { animation: cycle 6s infinite }
+    .traffic-light[data-animate="yes"] .light.yellow { animation: cycle 6s infinite .01s }
+    .traffic-light[data-animate="yes"] .light.green  { animation: cycle 6s infinite .02s }
+  </style>
+</head>
+<body>
+
+ 
+  <div class="traffic-light" data-animate="yes">
+    <div class="light red on"></div>
+    <div class="light yellow"></div>
+    <div class="light green"></div>
+  </div>
+
+  <script>
+   
+    if(!document.querySelector('.traffic-light').dataset.animate){
+      document.querySelectorAll('.light').forEach(l => {
+        l.addEventListener('click', () => {
+          document.querySelectorAll('.light').forEach(el => el.classList.remove('on'));
+          l.classList.add('on');
+        });
+      });
+    }
+  </script>
+</body>
+</html>
